@@ -1,0 +1,46 @@
+{
+    "name": "Optibit - Bluetooth & WiFi Messenger",
+    "short_name": "Optibit",
+    "description": "Real Bluetooth & WiFi Direct messaging. Send text, images, video & voice. No internet needed.",
+    "id": "/app.html",
+    "start_url": "/app.html?source=pwa",
+    "display_override": ["standalone", "minimal-ui", "browser"],
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#0a0a0f",
+    "orientation": "any",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Open Nearby",
+            "short_name": "Nearby",
+            "description": "Open device discovery",
+            "url": "/app.html#nearby",
+            "icons": [{ "src": "icon.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Open Chats",
+            "short_name": "Chats",
+            "description": "Open conversation list",
+            "url": "/app.html#chats",
+            "icons": [{ "src": "icon.png", "sizes": "192x192" }]
+        }
+    ],
+    "categories": ["communication", "social"],
+    "screenshots": [],
+    "prefer_related_applications": false
+}

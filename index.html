@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optibit – Bluetooth & WiFi Messenger</title>
+    <meta name="description"
+        content="Optibit: Real Bluetooth & WiFi Direct messaging. Send text, images, video & voice. No internet needed. Built with PWA technology by Cozytustudios.">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="loader-inner">
+            <div class="loader-icon">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="36" stroke="url(#loaderGrad)" stroke-width="3" stroke-dasharray="180 80"
+                        class="loader-circle" />
+                    <path
+                        d="M40 20C32 20 26 26 26 34C26 38 28 41 31 43L28 54L38 48C38.6 48 39.3 48 40 48C48 48 54 42 54 34C54 26 48 20 40 20Z"
+                        fill="url(#loaderGrad2)" />
+                    <circle cx="33" cy="34" r="2.5" fill="#0a0a0f" />
+                    <circle cx="40" cy="34" r="2.5" fill="#0a0a0f" />
+                    <circle cx="47" cy="34" r="2.5" fill="#0a0a0f" />
+                    <defs>
+                        <linearGradient id="loaderGrad" x1="0" y1="0" x2="80" y2="80">
+                            <stop offset="0%" stop-color="#00d4ff" />
+                            <stop offset="100%" stop-color="#7c3aed" />
+                        </linearGradient>
+                        <linearGradient id="loaderGrad2" x1="26" y1="20" x2="54" y2="54">
+                            <stop offset="0%" stop-color="#00d4ff" />
+                            <stop offset="100%" stop-color="#7c3aed" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="loader-text">OPTIBIT</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 4C12 4 6 10 6 18C6 22 8 25.5 11 28L8 36L17 31C17.8 31.1 18.9 31.2 20 31.2C28 31.2 34 25.2 34 17.2C34 9.6 28 4 20 4Z"
+                            fill="url(#logoGrad)" />
+                        <circle cx="14" cy="17" r="2" fill="#0a0a0f" />
+                        <circle cx="20" cy="17" r="2" fill="#0a0a0f" />
+                        <circle cx="26" cy="17" r="2" fill="#0a0a0f" />
+                        <defs>
+                            <linearGradient id="logoGrad" x1="6" y1="4" x2="34" y2="36">
+                                <stop offset="0%" stop-color="#00d4ff" />
+                                <stop offset="100%" stop-color="#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Optibit</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#security" class="nav-link">Security</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#chat-demo" class="nav-link">Demo</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="app.html" class="nav-link nav-cta">
+                    <i class="fas fa-rocket"></i> Open App
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-effects">
+            <div class="hero-glow hero-glow-1"></div>
+            <div class="hero-glow hero-glow-2"></div>
+            <div class="hero-glow hero-glow-3"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge animate-on-scroll">
+                <span class="badge-dot"></span>
+                <span>100% Progressive Web App</span>
+            </div>
+            <h1 class="hero-title animate-on-scroll">
+                <span class="hero-title-line">The Most Secure</span>
+                <span class="hero-title-line gradient-text">Chat App</span>
+                <span class="hero-title-line">in the World</span>
+            </h1>
+            <p class="hero-subtitle animate-on-scroll">
+                100% End-to-End Encryption · No Internet Needed · Bluetooth Powered
+            </p>
+            <p class="hero-description animate-on-scroll">
+                Connect with nearby devices via Bluetooth for real-time encrypted messaging,
+                media sharing, and group conversations — all without a single byte touching the cloud.
+            </p>
+            <div class="hero-actions animate-on-scroll">
+                <a href="app.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-bolt"></i>
+                    <span>Launch Optibit App</span>
+                    <div class="btn-shine"></div>
+                </a>
+                <a href="#chat-demo" class="btn btn-ghost btn-lg">
+                    <i class="fas fa-play-circle"></i>
+                    <span>See Demo</span>
+                </a>
+            </div>
+            <div class="hero-stats animate-on-scroll">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="256">0</div>
+                    <div class="stat-label">-bit AES Encryption</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="0">0</div>
+                    <div class="stat-label">Cloud Storage</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">% Offline</div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Phone Mockup -->
+        <div class="hero-mockup animate-on-scroll">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="mock-header">
+                        <div class="mock-header-left">
+                            <i class="fas fa-arrow-left"></i>
+                            <div class="mock-avatar">S</div>
+                            <div>
+                                <div class="mock-name">Sajid</div>
+                                <div class="mock-status"><span class="bluetooth-dot"></span> Connected via Bluetooth
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mock-header-right">
+                            <i class="fas fa-phone"></i>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                    </div>
+                    <div class="mock-chat">
+                        <div class="mock-date">Today</div>
+                        <div class="mock-bubble received">
+                            <p>Hey! Have you tried Optibit? 🔒</p>
+                            <span class="mock-time">10:24 AM</span>
+                        </div>
+                        <div class="mock-bubble sent">
+                            <p>Yes! The Bluetooth connection is amazing! No wifi needed 🚀</p>
+                            <span class="mock-time">10:25 AM</span>
+                        </div>
+                        <div class="mock-bubble received">
+                            <p>And everything is end-to-end encrypted. Zero cloud storage! 🛡️</p>
+                            <span class="mock-time">10:25 AM</span>
+                        </div>
+                        <div class="mock-bubble sent">
+                            <p>The most secure chat ever! Sharing files is super fast too 📁⚡</p>
+                            <span class="mock-time">10:26 AM</span>
+                        </div>
+                        <div class="mock-bubble received typing">
+                            <div class="typing-indicator">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mock-input">
+                        <i class="fas fa-plus-circle"></i>
+                        <div class="mock-input-field">Message...</div>
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="phone-reflection"></div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>Military-Grade Encryption</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fab fa-bluetooth-b"></i>
+                    <span>Bluetooth 5.0+ Ready</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-wifi-slash"></i>
+                    <span>Zero Internet Required</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-cloud-slash"></i>
+                    <span>No Cloud Storage</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-mobile-screen-button"></i>
+                    <span>PWA Technology</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-star"></i> Features</span>
+                <h2 class="section-title">Powerful Features for<br><span class="gradient-text">Secure
+                        Communication</span></h2>
+                <p class="section-desc">Everything you need for private, offline messaging — packed into a lightweight
+                    PWA experience.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll" data-delay="0">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fab fa-bluetooth-b"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>Bluetooth Messaging</h3>
+                    <p>Connect directly with nearby devices using advanced Bluetooth 5.0 technology. No WiFi, no
+                        cellular — just pure peer-to-peer communication.</p>
+                    <div class="feature-tag">Core Technology</div>
+                </div>
+                <div class="feature-card animate-on-scroll" data-delay="100">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>E2E Encryption</h3>
+                    <p>256-bit AES encryption with secure key exchange protocols. Every message, file, and media is
+                        encrypted before it ever leaves your device.</p>
+                    <div class="feature-tag">Security</div>
+                </div>
+                <div class="feature-card animate-on-scroll" data-delay="200">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>Group Chats</h3>
+                    <p>Create encrypted group conversations with multiple nearby devices. Perfect for team meetings,
+                        events, or any scenario requiring private group communication.</p>
+                    <div class="feature-tag">Collaboration</div>
+                </div>
+                <div class="feature-card animate-on-scroll" data-delay="300">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fas fa-photo-film"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>Media Sharing</h3>
+                    <p>Share images, videos, audio files, and documents seamlessly over Bluetooth. Fast transfer speeds
+                        with encrypted file delivery.</p>
+                    <div class="feature-tag">Media</div>
+                </div>
+                <div class="feature-card animate-on-scroll" data-delay="400">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-screen-button"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>100% PWA</h3>
+                    <p>Install directly from your browser — no app store needed. Works offline, loads instantly, and
+                        feels like a native app on any device.</p>
+                    <div class="feature-tag">Technology</div>
+                </div>
+                <div class="feature-card animate-on-scroll" data-delay="500">
+                    <div class="feature-icon-wrap">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="feature-icon-bg"></div>
+                    </div>
+                    <h3>Local Storage Only</h3>
+                    <p>All data stays on your device. Encrypted local storage ensures your messages are never uploaded
+                        to any server or cloud service.</p>
+                    <div class="feature-tag">Privacy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="section security" id="security">
+        <div class="security-bg">
+            <div class="security-grid-bg"></div>
+        </div>
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-shield-halved"></i> Security</span>
+                <h2 class="section-title">Uncompromising<br><span class="gradient-text">Security Architecture</span>
+                </h2>
+                <p class="section-desc">Built from the ground up with privacy-first design. No compromises, no
+                    backdoors, no exceptions.</p>
+            </div>
+            <div class="security-showcase">
+                <div class="security-visual animate-on-scroll">
+                    <div class="shield-container">
+                        <div class="shield-ring ring-1"></div>
+                        <div class="shield-ring ring-2"></div>
+                        <div class="shield-ring ring-3"></div>
+                        <div class="shield-core">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div class="shield-particles">
+                            <span style="--i:0"></span>
+                            <span style="--i:1"></span>
+                            <span style="--i:2"></span>
+                            <span style="--i:3"></span>
+                            <span style="--i:4"></span>
+                            <span style="--i:5"></span>
+                            <span style="--i:6"></span>
+                            <span style="--i:7"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="security-details">
+                    <div class="security-item animate-on-scroll">
+                        <div class="security-item-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="security-item-content">
+                            <h4>Secure Key Exchange</h4>
+                            <p>Diffie-Hellman key exchange protocol ensures that encryption keys are generated and
+                                shared securely between devices without any third-party involvement.</p>
+                        </div>
+                    </div>
+                    <div class="security-item animate-on-scroll">
+                        <div class="security-item-icon">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <div class="security-item-content">
+                            <h4>Device Authentication</h4>
+                            <p>Biometric and PIN-based device verification ensures only authorized users can access
+                                conversations and encrypted data stored locally.</p>
+                        </div>
+                    </div>
+                    <div class="security-item animate-on-scroll">
+                        <div class="security-item-icon">
+                            <i class="fas fa-eye-slash"></i>
+                        </div>
+                        <div class="security-item-content">
+                            <h4>Zero Knowledge Architecture</h4>
+                            <p>We can't read your messages — because we never receive them. Everything stays between
+                                your device and the connected peer. No servers, no logs, no tracking.</p>
+                        </div>
+                    </div>
+                    <div class="security-item animate-on-scroll">
+                        <div class="security-item-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="security-item-content">
+                            <h4>Self-Destructing Messages</h4>
+                            <p>Set timers on sensitive messages. Once the timer expires, the message is permanently
+                                erased from all connected devices — no traces left behind.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Encryption Visual -->
+            <div class="encryption-demo animate-on-scroll">
+                <div class="encrypt-label">How Your Messages Are Protected</div>
+                <div class="encrypt-flow">
+                    <div class="encrypt-step">
+                        <div class="encrypt-step-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="encrypt-step-label">Your Message</div>
+                        <code class="encrypt-code">"Hello World!"</code>
+                    </div>
+                    <div class="encrypt-arrow"><i class="fas fa-arrow-right"></i></div>
+                    <div class="encrypt-step">
+                        <div class="encrypt-step-icon"><i class="fas fa-lock"></i></div>
+                        <div class="encrypt-step-label">AES-256 Encryption</div>
+                        <code class="encrypt-code encrypted">aF9x$kL2...mN7p</code>
+                    </div>
+                    <div class="encrypt-arrow"><i class="fab fa-bluetooth-b"></i></div>
+                    <div class="encrypt-step">
+                        <div class="encrypt-step-icon"><i class="fas fa-unlock"></i></div>
+                        <div class="encrypt-step-label">Decrypted on Device</div>
+                        <code class="encrypt-code">"Hello World!"</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-wand-magic-sparkles"></i> How It Works</span>
+                <h2 class="section-title">Get Started in<br><span class="gradient-text">Three Simple Steps</span></h2>
+                <p class="section-desc">No sign-ups, no phone numbers, no email verification. Just install and connect.
+                </p>
+            </div>
+            <div class="steps-container">
+                <div class="steps-line"></div>
+                <div class="step-card animate-on-scroll">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-download"></i></div>
+                    <h3>Open the Web App</h3>
+                    <p>Visit Optibit in your browser. Tap <strong>"Add to Home Screen"</strong> from your browser menu
+                        to install it locally — no app store, no account, no tracking.</p>
+                </div>
+                <div class="step-card animate-on-scroll">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fab fa-bluetooth-b"></i></div>
+                    <h3>Enable Bluetooth</h3>
+                    <p>Turn on Bluetooth and scan for nearby Optibit users. The app automatically discovers compatible
+                        devices and initiates a secure handshake.</p>
+                </div>
+                <div class="step-card animate-on-scroll">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Start Chatting</h3>
+                    <p>Once connected, send encrypted messages, share media, and create group chats — all through
+                        Bluetooth with zero internet dependency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Demo Section -->
+    <section class="section chat-demo" id="chat-demo">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-message"></i> Live Demo</span>
+                <h2 class="section-title">Experience the<br><span class="gradient-text">Optibit Interface</span></h2>
+                <p class="section-desc">A messenger-inspired design that feels familiar yet revolutionary.</p>
+            </div>
+            <div class="demo-container animate-on-scroll">
+                <div class="demo-phone">
+                    <div class="demo-phone-frame">
+                        <div class="demo-notch"></div>
+                        <div class="demo-status-bar">
+                            <span>9:41</span>
+                            <div class="demo-status-icons">
+                                <i class="fas fa-signal"></i>
+                                <i class="fab fa-bluetooth-b" style="color:#00d4ff"></i>
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                        </div>
+                        <!-- Chat List View -->
+                        <div class="demo-screen" id="chatListScreen">
+                            <div class="demo-app-header">
+                                <h3>Optibit</h3>
+                                <div class="demo-app-actions">
+                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+                            <div class="demo-tabs">
+                                <div class="demo-tab active">All Chats</div>
+                                <div class="demo-tab">Groups</div>
+                                <div class="demo-tab">Nearby</div>
+                            </div>
+                            <div class="demo-chat-list">
+                                <div class="demo-chat-item" data-chat="sajid">
+                                    <div class="demo-chat-avatar online">S</div>
+                                    <div class="demo-chat-info">
+                                        <div class="demo-chat-name">Sajid Hossain <i class="fas fa-bluetooth-b"
+                                                style="color:#00d4ff;font-size:10px"></i></div>
+                                        <div class="demo-chat-preview">The encryption is incredible! 🔐</div>
+                                    </div>
+                                    <div class="demo-chat-meta">
+                                        <div class="demo-chat-time">Now</div>
+                                        <div class="demo-unread">3</div>
+                                    </div>
+                                </div>
+                                <div class="demo-chat-item" data-chat="team">
+                                    <div class="demo-chat-avatar group"><i class="fas fa-users"></i></div>
+                                    <div class="demo-chat-info">
+                                        <div class="demo-chat-name">Dev Team <span class="demo-group-badge">Group</span>
+                                        </div>
+                                        <div class="demo-chat-preview">Alex: Meeting in 5 mins 📋</div>
+                                    </div>
+                                    <div class="demo-chat-meta">
+                                        <div class="demo-chat-time">2m</div>
+                                        <div class="demo-unread">12</div>
+                                    </div>
+                                </div>
+                                <div class="demo-chat-item">
+                                    <div class="demo-chat-avatar online"
+                                        style="background:linear-gradient(135deg,#f97316,#ec4899)">A</div>
+                                    <div class="demo-chat-info">
+                                        <div class="demo-chat-name">Alex Chen <i class="fas fa-bluetooth-b"
+                                                style="color:#00d4ff;font-size:10px"></i></div>
+                                        <div class="demo-chat-preview">📎 Sent a document</div>
+                                    </div>
+                                    <div class="demo-chat-meta">
+                                        <div class="demo-chat-time">15m</div>
+                                    </div>
+                                </div>
+                                <div class="demo-chat-item">
+                                    <div class="demo-chat-avatar"
+                                        style="background:linear-gradient(135deg,#10b981,#06b6d4)">M</div>
+                                    <div class="demo-chat-info">
+                                        <div class="demo-chat-name">Maya Patel</div>
+                                        <div class="demo-chat-preview">See you tomorrow! 👋</div>
+                                    </div>
+                                    <div class="demo-chat-meta">
+                                        <div class="demo-chat-time">1h</div>
+                                    </div>
+                                </div>
+                                <div class="demo-chat-item">
+                                    <div class="demo-chat-avatar"
+                                        style="background:linear-gradient(135deg,#8b5cf6,#ec4899)">R</div>
+                                    <div class="demo-chat-info">
+                                        <div class="demo-chat-name">Rahim Khan</div>
+                                        <div class="demo-chat-preview">🎵 Shared an audio file</div>
+                                    </div>
+                                    <div class="demo-chat-meta">
+                                        <div class="demo-chat-time">3h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="demo-fab">
+                                <i class="fab fa-bluetooth-b"></i>
+                            </div>
+                        </div>
+                        <div class="demo-nav-bar">
+                            <div class="demo-nav-item active"><i class="fas fa-comment-dots"></i><span>Chats</span>
+                            </div>
+                            <div class="demo-nav-item"><i class="fas fa-tower-broadcast"></i><span>Nearby</span></div>
+                            <div class="demo-nav-item"><i class="fas fa-gear"></i><span>Settings</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-features-panel">
+                    <div class="demo-feature-highlight">
+                        <div class="dfh-icon"><i class="fas fa-palette"></i></div>
+                        <div>
+                            <h4>Dark Mode First</h4>
+                            <p>Beautiful dark interface designed for comfortable use in any lighting condition.</p>
+                        </div>
+                    </div>
+                    <div class="demo-feature-highlight">
+                        <div class="dfh-icon"><i class="fas fa-bolt"></i></div>
+                        <div>
+                            <h4>Instant Messages</h4>
+                            <p>Sub-millisecond message delivery through optimized Bluetooth protocols.</p>
+                        </div>
+                    </div>
+                    <div class="demo-feature-highlight">
+                        <div class="dfh-icon"><i class="fas fa-fingerprint"></i></div>
+                        <div>
+                            <h4>Biometric Lock</h4>
+                            <p>Secure your chats with fingerprint or face recognition before opening the app.</p>
+                        </div>
+                    </div>
+                    <div class="demo-feature-highlight">
+                        <div class="dfh-icon"><i class="fas fa-file-zipper"></i></div>
+                        <div>
+                            <h4>Smart Compression</h4>
+                            <p>Advanced compression algorithms for faster media transfer over Bluetooth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section comparison">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-chart-bar"></i> Comparison</span>
+                <h2 class="section-title">Why Optibit<br><span class="gradient-text">Stands Apart</span></h2>
+            </div>
+            <div class="comparison-table animate-on-scroll">
+                <div class="comp-header">
+                    <div class="comp-feature-label">Feature</div>
+                    <div class="comp-app comp-optichat">Optibit</div>
+                    <div class="comp-app">WhatsApp</div>
+                    <div class="comp-app">Telegram</div>
+                    <div class="comp-app">Signal</div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">Works Offline</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">No Internet Needed</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">E2E Encryption</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-check-circle dim"></i></div>
+                    <div class="comp-app"><i class="fas fa-minus-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-check-circle dim"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">No Cloud Storage</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-minus-circle"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">No Phone Number</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">No Tracking</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-minus-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-check-circle dim"></i></div>
+                </div>
+                <div class="comp-row">
+                    <div class="comp-feature-label">PWA Install</div>
+                    <div class="comp-app comp-optichat"><i class="fas fa-check-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-minus-circle"></i></div>
+                    <div class="comp-app"><i class="fas fa-times-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section tech-stack">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-microchip"></i> Technology</span>
+                <h2 class="section-title">Built With<br><span class="gradient-text">Cutting-Edge Tech</span></h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fab fa-bluetooth-b"></i></div>
+                    <h4>Web Bluetooth API</h4>
+                    <p>Direct device-to-device communication</p>
+                </div>
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-gears"></i></div>
+                    <h4>Service Workers</h4>
+                    <p>Offline-first PWA architecture</p>
+                </div>
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-database"></i></div>
+                    <h4>IndexedDB</h4>
+                    <p>Encrypted local data storage</p>
+                </div>
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-lock"></i></div>
+                    <h4>Web Crypto API</h4>
+                    <p>Native browser-level encryption</p>
+                </div>
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-bell"></i></div>
+                    <h4>Push Notifications</h4>
+                    <p>Real-time message alerts</p>
+                </div>
+                <div class="tech-card animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-code"></i></div>
+                    <h4>Web Components</h4>
+                    <p>Modular, reusable UI elements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team" id="team">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag"><i class="fas fa-people-group"></i> Team</span>
+                <h2 class="section-title">The Visionaries<br><span class="gradient-text">Behind Optibit</span></h2>
+                <p class="section-desc">A bold vision to redefine offline messaging with powerful PWA technology and
+                    uncompromising security standards.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <div class="team-avatar-inner">
+                            <img class="team-avatar-photo" src="sajid-hossain.jpg" alt="Sajid Hossain">
+                        </div>
+                        <div class="team-avatar-ring"></div>
+                    </div>
+                    <h3>Sajid Hossain</h3>
+                    <p class="team-role">Founder & CEO</p>
+                    <p class="team-bio">Visionary technologist behind Optibit. Passionate about privacy, decentralized
+                        communication, and empowering users with secure offline tools.</p>
+                    <div class="team-socials">
+                        <a href="https://linktr.ee/aspentuzy" target="_blank" rel="noopener noreferrer" title="Personal Link">
+                            <i class="fas fa-link"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="team-card animate-on-scroll">
+                    <div class="team-avatar">
+                        <div class="team-avatar-inner">
+                            <img class="team-avatar-logo" src="cozytustudios-logo.svg" alt="Cozytustudios logo">
+                        </div>
+                        <div class="team-avatar-ring" style="border-color:#f97316"></div>
+                    </div>
+                    <h3>Cozytustudios</h3>
+                    <p class="team-role">Creator & Development Studio</p>
+                    <p class="team-bio">The innovative development studio bringing Optibit to life. Specializing in
+                        cutting-edge PWA solutions, security architecture, and seamless user experiences.</p>
+                    <div class="team-socials">
+                        <a href="https://cozytusstudio-showcase-9bg3htb.gamma.site/cozytustudio" target="_blank" rel="noopener noreferrer" title="Cozytustudios Showcase">
+                            <i class="fas fa-up-right-from-square"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download / CTA Section -->
+    <section class="section cta-section" id="download">
+        <div class="cta-bg">
+            <div class="cta-glow cta-glow-1"></div>
+            <div class="cta-glow cta-glow-2"></div>
+        </div>
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <div class="cta-badge">
+                    <i class="fas fa-rocket"></i> Available Now
+                </div>
+                <h2 class="cta-title">Ready to Experience<br><span class="gradient-text">True Privacy?</span></h2>
+                <p class="cta-desc">Join the revolution of secure, offline communication. Open Optibit in your browser,
+                    grant Bluetooth access, and add it to your home screen — no app store, no sign-up, no compromise.
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-xl" id="installBtn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add Optibit to Home Screen</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                </div>
+                <div class="cta-platforms">
+                    <span><i class="fab fa-bluetooth-b"></i> Bluetooth Access</span>
+                    <span><i class="fas fa-mobile-screen-button"></i> Add to Home Screen</span>
+                    <span><i class="fas fa-wifi-slash"></i> No Internet Needed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20 4C12 4 6 10 6 18C6 22 8 25.5 11 28L8 36L17 31C17.8 31.1 18.9 31.2 20 31.2C28 31.2 34 25.2 34 17.2C34 9.6 28 4 20 4Z"
+                                    fill="url(#footerLogoGrad)" />
+                                <circle cx="14" cy="17" r="2" fill="#0a0a0f" />
+                                <circle cx="20" cy="17" r="2" fill="#0a0a0f" />
+                                <circle cx="26" cy="17" r="2" fill="#0a0a0f" />
+                                <defs>
+                                    <linearGradient id="footerLogoGrad" x1="6" y1="4" x2="34" y2="36">
+                                        <stop offset="0%" stop-color="#00d4ff" />
+                                        <stop offset="100%" stop-color="#7c3aed" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="logo-text">Optibit</span>
+                    </a>
+                    <p>The most secure chat app in the world. 100% End-to-End Encrypted. Bluetooth-powered. No internet
+                        needed.</p>
+
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#security">Security</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#download">Download</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <a href="#team">About Us</a>
+                    <a href="https://cozytusstudio-showcase-9bg3htb.gamma.site/cozytustudio" target="_blank" rel="noopener noreferrer">Showcase</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security Audit</a>
+                    <a href="#">Open Source</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Optibit by <strong>Cozytustudios</strong>. Founded by <strong>Sajid Hossain</strong>.
+                    All rights reserved.</p>
+                <p class="footer-tagline">Redefining offline messaging with PWA technology and uncompromising security.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="particles.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

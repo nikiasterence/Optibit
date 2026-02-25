@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Optibit – Bluetooth & WiFi Messenger</title>
+    <meta name="description" content="Optibit: Real Bluetooth & WiFi Direct messaging. Send text, images, video & voice. No internet needed.">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+
+    <div id="app" class="app">
+
+        <!-- ===== SPLASH SCREEN ===== -->
+        <div id="splashScreen" class="screen active">
+            <div class="splash-bg">
+                <div class="splash-glow g1"></div>
+                <div class="splash-glow g2"></div>
+                <div class="splash-grid"></div>
+            </div>
+            <div class="splash-content">
+                <div class="splash-logo">
+                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="sg1" x1="0" y1="0" x2="80" y2="80">
+                                <stop offset="0%" stop-color="#00d4ff" />
+                                <stop offset="100%" stop-color="#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="8" y="8" width="64" height="64" rx="16" fill="url(#sg1)" opacity="0.15"/>
+                        <rect x="8" y="8" width="64" height="64" rx="16" stroke="url(#sg1)" stroke-width="2.5" fill="none"/>
+                        <!-- Bluetooth icon -->
+                        <path d="M40 20L52 32L44 40L52 48L40 60V40L32 48M40 40L32 32" stroke="url(#sg1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <!-- Signal waves -->
+                        <path d="M56 28C60 32 62 36 62 40C62 44 60 48 56 52" stroke="url(#sg1)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+                        <path d="M60 24C66 30 68 34 68 40C68 46 66 50 60 56" stroke="url(#sg1)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.3"/>
+                    </svg>
+                </div>
+                <div class="splash-name">OPTIBIT</div>
+                <div class="splash-tag">Bluetooth & WiFi Messenger</div>
+                <div class="splash-loader">
+                    <div class="splash-loader-bar"></div>
+                </div>
+                <div class="splash-credit">by Cozytustudios · Founded by Sajid Hossain</div>
+            </div>
+        </div>
+
+        <!-- ===== ONBOARDING SCREEN ===== -->
+        <div id="onboardingScreen" class="screen">
+            <div class="ob-slides">
+                <div class="ob-slide active" data-slide="0">
+                    <div class="ob-icon">
+                        <div class="ob-icon-ring r1"></div>
+                        <div class="ob-icon-ring r2"></div>
+                        <i class="fab fa-bluetooth-b"></i>
+                    </div>
+                    <h2>Real Bluetooth Chat</h2>
+                    <p>Connect to nearby devices using Web Bluetooth API. No internet, no servers — direct device-to-device communication.</p>
+                </div>
+                <div class="ob-slide" data-slide="1">
+                    <div class="ob-icon">
+                        <div class="ob-icon-ring r1"></div>
+                        <div class="ob-icon-ring r2"></div>
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h2>WiFi Direct Support</h2>
+                    <p>Use WebRTC peer connections for faster transfers. Share images, videos, voice messages and files at high speed.</p>
+                </div>
+                <div class="ob-slide" data-slide="2">
+                    <div class="ob-icon">
+                        <div class="ob-icon-ring r1"></div>
+                        <div class="ob-icon-ring r2"></div>
+                        <i class="fas fa-photo-film"></i>
+                    </div>
+                    <h2>Rich Media Sharing</h2>
+                    <p>Send images, videos, voice notes and documents. Everything transfers directly between devices with full encryption.</p>
+                </div>
+            </div>
+            <div class="ob-dots">
+                <span class="ob-dot active" data-idx="0"></span>
+                <span class="ob-dot" data-idx="1"></span>
+                <span class="ob-dot" data-idx="2"></span>
+            </div>
+            <div class="ob-actions">
+                <button id="obNext" class="btn-primary-app">Next <i class="fas fa-arrow-right"></i></button>
+                <button id="obSkip" class="btn-ghost-app">Skip</button>
+            </div>
+        </div>
+
+        <!-- ===== SETUP SCREEN ===== -->
+        <div id="setupScreen" class="screen">
+            <div class="setup-header">
+                <div class="setup-logo-sm">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="slg" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#00d4ff" />
+                                <stop offset="100%" stop-color="#7c3aed" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#slg)" opacity="0.2"/>
+                        <rect x="4" y="4" width="32" height="32" rx="8" stroke="url(#slg)" stroke-width="1.5" fill="none"/>
+                        <path d="M20 10L26 16L22 20L26 24L20 30V20L16 24M20 20L16 16" stroke="url(#slg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </div>
+                <span>Optibit</span>
+            </div>
+            <div class="setup-body">
+                <h2>Set Up Your Profile</h2>
+                <p>Choose a display name and avatar color. This is how nearby devices will see you.</p>
+                <div class="avatar-picker" id="avatarPicker">
+                    <div class="avatar-preview" id="avatarPreview">
+                        <img id="avatarPreviewPhoto" class="avatar-photo" alt="Profile photo preview" style="display:none">
+                        <span id="avatarInitials">?</span>
+                    </div>
+                    <label class="avatar-upload-btn" for="setupPhotoInput">
+                        <i class="fas fa-image"></i> Add Profile Photo
+                    </label>
+                    <input type="file" id="setupPhotoInput" accept="image/*" style="display:none">
+                    <div class="avatar-colors">
+                        <div class="av-color active" style="background:linear-gradient(135deg,#00d4ff,#7c3aed)" data-color="cyan-purple"></div>
+                        <div class="av-color" style="background:linear-gradient(135deg,#f97316,#ec4899)" data-color="orange-pink"></div>
+                        <div class="av-color" style="background:linear-gradient(135deg,#10b981,#06b6d4)" data-color="green-cyan"></div>
+                        <div class="av-color" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)" data-color="purple-pink"></div>
+                        <div class="av-color" style="background:linear-gradient(135deg,#f59e0b,#ef4444)" data-color="amber-red"></div>
+                        <div class="av-color" style="background:linear-gradient(135deg,#06b6d4,#10b981)" data-color="sky-green"></div>
+                    </div>
+                </div>
+                <div class="setup-field">
+                    <label>Display Name</label>
+                    <input type="text" id="setupName" placeholder="e.g. Sajid" maxlength="24" autocomplete="off">
+                    <span class="field-hint">This is how others will see you on nearby scans</span>
+                </div>
+                <div class="setup-field">
+                    <label>Status</label>
+                    <input type="text" id="setupStatus" placeholder="e.g. Available" maxlength="40" autocomplete="off">
+                </div>
+                <button id="setupDone" class="btn-primary-app full-width" disabled>
+                    <i class="fas fa-check"></i> Start Messaging
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== MAIN APP (Desktop: sidebar + content area) ===== -->
+        <div id="mainApp" class="screen">
+
+            <!-- Desktop sidebar wrapper -->
+            <div class="desktop-layout">
+
+                <!-- Left sidebar (always visible on desktop) -->
+                <div class="sidebar" id="sidebar">
+                    <!-- Bottom Navigation (mobile) / Top Navigation (desktop) -->
+                    <nav class="app-nav">
+                        <div class="dock-pill">
+                            <button class="nav-btn active" data-tab="chats" id="navChats">
+                                <i class="fas fa-comment-dots"></i>
+                                <span>Chat</span>
+                                <div class="nav-badge" id="chatBadge" style="display:none">0</div>
+                            </button>
+                            <button class="nav-btn" data-tab="nearby" id="navNearby">
+                                <i class="fab fa-bluetooth-b"></i>
+                                <span>Nearby</span>
+                            </button>
+                            <button class="nav-btn" data-tab="settings" id="navSettings">
+                                <i class="fas fa-book-open"></i>
+                                <span>Library</span>
+                            </button>
+                        </div>
+                        <button class="dock-search-btn" id="dockSearchBtn" title="Search chats">
+                            <i class="fas fa-magnifying-glass"></i>
+                        </button>
+                    </nav>
+
+                    <!-- ---- CHATS TAB ---- -->
+                    <div id="tabChats" class="tab-content active">
+                        <div class="tab-header">
+                            <div class="tab-title-row">
+                                <h1>Messages</h1>
+                                <div class="tab-actions">
+                                    <button class="icon-btn" id="searchBtn" title="Search"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                            <div class="search-bar" id="searchBar" style="display:none">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput" placeholder="Search conversations...">
+                                <button id="searchClose"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="chat-list" id="chatList">
+                            <!-- Populated by JS -->
+                        </div>
+                        <div class="empty-state" id="chatsEmpty">
+                            <i class="fab fa-bluetooth-b"></i>
+                            <h3>No conversations yet</h3>
+                            <p>Go to <strong>Nearby</strong> to discover Bluetooth devices, turn on Bluetooth and start chatting!</p>
+                            <button class="btn-primary-app" onclick="switchTab('nearby')">
+                                <i class="fab fa-bluetooth-b"></i> Find Devices
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ---- NEARBY TAB ---- -->
+                    <div id="tabNearby" class="tab-content">
+                        <div class="tab-header">
+                            <h1>Nearby Devices</h1>
+                            <p class="tab-subtitle" id="nearbySubtitle">Turn on Bluetooth to find nearby devices</p>
+                        </div>
+
+                        <!-- Bluetooth Power Card -->
+                        <div class="bt-power-card" id="btPowerCard">
+                            <div class="bt-power-icon" id="btPowerIcon">
+                                <i class="fab fa-bluetooth-b"></i>
+                            </div>
+                            <div class="bt-power-info">
+                                <div class="bt-power-label" id="btPowerLabel">Bluetooth Off</div>
+                                <div class="bt-power-sub" id="btPowerSub">Turn on Bluetooth to discover nearby devices</div>
+                            </div>
+                            <button class="bt-toggle-btn" id="btToggleBtn">
+                                <span id="btToggleText">Turn On</span>
+                            </button>
+                        </div>
+
+                        <!-- Connection Mode Selector -->
+                        <div class="connection-modes" id="connectionModes" style="display:none">
+                            <button class="mode-btn active" data-mode="bluetooth" id="modeBluetooth">
+                                <i class="fab fa-bluetooth-b"></i>
+                                <span>Bluetooth</span>
+                            </button>
+                            <button class="mode-btn" data-mode="wifi" id="modeWifi">
+                                <i class="fas fa-wifi"></i>
+                                <span>WiFi Direct</span>
+                            </button>
+                        </div>
+
+                        <!-- Scanning Status -->
+                        <div class="bt-status-card" id="btStatusCard" style="display:none">
+                            <div class="bt-icon-wrap">
+                                <div class="bt-scan-ring r1"></div>
+                                <div class="bt-scan-ring r2"></div>
+                                <div class="bt-scan-ring r3"></div>
+                                <i class="fab fa-bluetooth-b bt-center-icon" id="scanCenterIcon"></i>
+                            </div>
+                            <div class="bt-status-text">
+                                <div id="btStatusLabel">Scanning...</div>
+                                <div id="btStatusSub">Looking for nearby devices...</div>
+                            </div>
+                            <button class="btn-primary-app sm" id="btScanBtn">
+                                <i class="fas fa-rotate"></i> Scan
+                            </button>
+                        </div>
+
+                        <!-- Discovered Devices -->
+                        <div class="nearby-section" id="nearbySection" style="display:none">
+                            <div class="nearby-section-title">Discovered Devices <span id="deviceCount">0</span></div>
+                            <div class="device-list" id="deviceList">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Connected Devices -->
+                        <div class="nearby-section" id="connectedSection" style="display:none">
+                            <div class="nearby-section-title">Connected Devices</div>
+                            <div class="device-list" id="connectedList">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Bluetooth Not Supported Warning -->
+                        <div class="bt-warning" id="btWarning" style="display:none">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Bluetooth Not Available</h3>
+                            <p>Your browser doesn't support Web Bluetooth API. Please use Chrome, Edge or Opera on desktop, or Chrome on Android.</p>
+                            <div class="bt-warning-alt">
+                                <p>You can still use <strong>WiFi Direct (WebRTC)</strong> mode to connect with nearby devices on the same network.</p>
+                                <button class="btn-primary-app" id="useWifiBtn">
+                                    <i class="fas fa-wifi"></i> Use WiFi Direct
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ---- SETTINGS TAB ---- -->
+                    <div id="tabSettings" class="tab-content">
+                        <div class="tab-header">
+                            <h1>Settings</h1>
+                        </div>
+                        <div class="settings-profile" id="settingsProfile">
+                            <div class="settings-avatar" id="settingsAvatar"></div>
+                            <div>
+                                <div class="settings-name" id="settingsName">-</div>
+                                <div class="settings-status" id="settingsStatus">-</div>
+                            </div>
+                            <button class="icon-btn" id="editProfileBtn"><i class="fas fa-pen"></i></button>
+                        </div>
+                        <div class="settings-list">
+                            <div class="settings-section-label">Connection</div>
+                            <div class="settings-item" id="btInfoItem">
+                                <div class="si-icon cyan"><i class="fab fa-bluetooth-b"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Bluetooth Status</div>
+                                    <div class="si-desc" id="btSettingsStatus">Not connected</div>
+                                </div>
+                            </div>
+                            <div class="settings-item" id="wifiInfoItem">
+                                <div class="si-icon green"><i class="fas fa-wifi"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">WiFi Direct Status</div>
+                                    <div class="si-desc" id="wifiSettingsStatus">Not connected</div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section-label">Customization</div>
+                            <div class="settings-item" id="themeItem">
+                                <div class="si-icon gradient"><i class="fas fa-palette"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Theme</div>
+                                    <div class="si-desc" id="themeDesc">Deep Blue (Default)</div>
+                                </div>
+                                <i class="fas fa-chevron-right si-arrow"></i>
+                            </div>
+                            <div class="settings-item" id="dockSizeItem">
+                                <div class="si-icon cyan"><i class="fas fa-sliders"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Dock Size</div>
+                                    <div class="si-desc">Choose Small or Large dock</div>
+                                </div>
+                                <div class="dock-size-switch" role="group" aria-label="Dock size">
+                                    <button class="dock-size-btn" id="dockSmallBtn" type="button">S</button>
+                                    <button class="dock-size-btn active" id="dockLargeBtn" type="button">L</button>
+                                </div>
+                            </div>
+                            <div class="settings-item" id="installAppItem">
+                                <div class="si-icon purple"><i class="fas fa-download"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Install App (PWA)</div>
+                                    <div class="si-desc" id="installPwaDesc">Add Optibit to your home screen</div>
+                                </div>
+                                <i class="fas fa-chevron-right si-arrow"></i>
+                            </div>
+                            <div class="settings-item">
+                                <div class="si-icon green"><i class="fas fa-bell"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Notifications</div>
+                                    <div class="si-desc">Message & connection alerts</div>
+                                </div>
+                                <div class="toggle-switch active" id="notifToggle">
+                                    <div class="toggle-thumb"></div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section-label">Storage</div>
+                            <div class="settings-item" id="storageItem">
+                                <div class="si-icon orange"><i class="fas fa-database"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Local Storage</div>
+                                    <div class="si-desc" id="storageDesc">Calculating...</div>
+                                </div>
+                            </div>
+                            <div class="settings-item danger-item" id="clearDataItem">
+                                <div class="si-icon red"><i class="fas fa-trash"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Clear All Data</div>
+                                    <div class="si-desc">Delete all messages and connections</div>
+                                </div>
+                                <i class="fas fa-chevron-right si-arrow"></i>
+                            </div>
+
+                            <div class="settings-section-label">About</div>
+                            <div class="settings-item">
+                                <div class="si-icon gradient"><i class="fas fa-circle-info"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Optibit v2.0.0</div>
+                                    <div class="si-desc">by Cozytustudios · Founded by Sajid Hossain</div>
+                                </div>
+                            </div>
+                            <div class="settings-item">
+                                <div class="si-icon cyan"><i class="fas fa-heart"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Made by Cozytustudios</div>
+                                    <div class="si-desc">Crafted with care for private offline messaging</div>
+                                </div>
+                            </div>
+                            <div class="settings-item" id="howToUseItem">
+                                <div class="si-icon green"><i class="fas fa-circle-question"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">How to use Optibit</div>
+                                    <div class="si-desc">Open quick-start instructions</div>
+                                </div>
+                                <i class="fas fa-chevron-right si-arrow"></i>
+                            </div>
+                            <label class="settings-item settings-link-item" id="profilePhotoItem" for="profilePhotoInput">
+                                <div class="si-icon purple"><i class="fas fa-image"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Profile Photo</div>
+                                    <div class="si-desc">Add or change your profile image</div>
+                                </div>
+                                <i class="fas fa-chevron-right si-arrow"></i>
+                            </label>
+                            <input type="file" id="profilePhotoInput" accept="image/*" style="display:none">
+                            <a class="settings-item settings-link-item" href="https://linktr.ee/aspentuzy" target="_blank" rel="noopener noreferrer">
+                                <div class="si-icon orange"><i class="fas fa-link"></i></div>
+                                <div class="si-text">
+                                    <div class="si-title">Sajid Hossain Link</div>
+                                    <div class="si-desc">linktr.ee/aspentuzy</div>
+                                </div>
+                                <i class="fas fa-arrow-up-right-from-square si-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right content area (desktop: shows chat or welcome) -->
+                <div class="content-area" id="contentArea">
+                    <div class="content-welcome" id="contentWelcome">
+                        <div class="cw-icon">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="cwg" x1="0" y1="0" x2="120" y2="120">
+                                        <stop offset="0%" stop-color="#00d4ff" />
+                                        <stop offset="100%" stop-color="#7c3aed" />
+                                    </linearGradient>
+                                </defs>
+                                <rect x="10" y="10" width="100" height="100" rx="24" fill="url(#cwg)" opacity="0.1"/>
+                                <path d="M60 30L80 50L68 60L80 70L60 90V60L48 70M60 60L48 50" stroke="url(#cwg)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <path d="M86 42C92 48 96 54 96 60C96 66 92 72 86 78" stroke="url(#cwg)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+                                <path d="M92 36C100 44 104 52 104 60C104 68 100 76 92 84" stroke="url(#cwg)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.25"/>
+                            </svg>
+                        </div>
+                        <h2>Welcome to Optibit</h2>
+                        <p>Select a conversation or discover nearby devices to start messaging via Bluetooth or WiFi Direct.</p>
+                        <div class="cw-features">
+                            <div class="cw-feature"><i class="fab fa-bluetooth-b"></i> Bluetooth Chat</div>
+                            <div class="cw-feature"><i class="fas fa-wifi"></i> WiFi Direct</div>
+                            <div class="cw-feature"><i class="fas fa-image"></i> Media Sharing</div>
+                            <div class="cw-feature"><i class="fas fa-microphone"></i> Voice Messages</div>
+                        </div>
+                    </div>
+
+                    <!-- Chat View (embedded in content area for desktop) -->
+                    <div class="chat-view-inner" id="chatViewInner" style="display:none">
+                        <div class="chat-header" id="chatHeader">
+                            <button class="back-btn" id="chatBack"><i class="fas fa-arrow-left"></i></button>
+                            <div class="chat-header-avatar" id="chatHeaderAvatar"></div>
+                            <div class="chat-header-info">
+                                <div class="chat-header-name" id="chatHeaderName">-</div>
+                                <div class="chat-header-status" id="chatHeaderStatus">
+                                    <span class="bt-dot"></span> <span id="chatConnectionType">Connecting...</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button class="icon-btn" id="chatMore"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                            <div class="encryption-badge"><i class="fas fa-lock"></i> E2E</div>
+                        </div>
+
+                        <div class="messages-container" id="messagesContainer">
+                            <div class="chat-date-divider"><span>Today</span></div>
+                            <!-- Messages populated by JS -->
+                        </div>
+
+                        <div class="media-preview-bar" id="mediaPreviewBar" style="display:none">
+                            <div class="mpb-content" id="mpbContent"></div>
+                            <button class="mpb-close" id="mpbClose"><i class="fas fa-times"></i></button>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <div class="chat-input-toolbar" id="chatToolbar" style="display:none">
+                                <label class="toolbar-btn" title="Image">
+                                    <i class="fas fa-image"></i>
+                                    <input type="file" accept="image/*" multiple id="fileImage" style="display:none">
+                                </label>
+                                <label class="toolbar-btn" title="Video">
+                                    <i class="fas fa-video"></i>
+                                    <input type="file" accept="video/*" id="fileVideo" style="display:none">
+                                </label>
+                                <label class="toolbar-btn" title="Document">
+                                    <i class="fas fa-file"></i>
+                                    <input type="file" accept=".pdf,.doc,.docx,.txt,.zip" id="fileDoc" style="display:none">
+                                </label>
+                                <button class="toolbar-btn" id="voiceNoteBtn" title="Voice Note">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                            <div class="chat-input-row">
+                                <button class="attach-btn" id="attachToggle"><i class="fas fa-plus"></i></button>
+                                <div class="message-input-wrap">
+                                    <div class="message-input" id="messageInput" contenteditable="true" data-placeholder="Type a message..."></div>
+                                </div>
+                                <button class="voice-btn" id="voiceBtn"><i class="fas fa-microphone"></i></button>
+                                <button class="send-btn" id="sendBtn" style="display:none"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /desktop-layout -->
+
+        </div><!-- /mainApp -->
+
+        <!-- ===== CHAT VIEW (Mobile overlay) ===== -->
+        <div id="chatView" class="screen slide-screen mobile-chat-view">
+            <!-- Cloned content managed by JS for mobile -->
+        </div>
+
+        <!-- ===== CONNECTING MODAL ===== -->
+        <div id="connectingModal" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fab fa-bluetooth-b"></i> Connecting...</h3>
+                </div>
+                <div class="modal-body" style="text-align:center;padding:30px 20px">
+                    <div class="connecting-spinner"></div>
+                    <div class="connecting-device" id="connectingDeviceName">Device</div>
+                    <div class="connecting-sub" id="connectingStatus">Establishing secure connection...</div>
+                    <button class="btn-ghost-app" id="connectingCancel" style="margin-top:20px">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== THEME MODAL ===== -->
+        <div id="themeModal" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fas fa-palette"></i> Choose Theme</h3>
+                    <button id="themeClose"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="theme-grid">
+                        <div class="theme-option active" data-theme="default">
+                            <div class="theme-preview" style="background:linear-gradient(135deg,#00d4ff,#7c3aed)"></div>
+                            <span>Deep Blue</span>
+                        </div>
+                        <div class="theme-option" data-theme="white">
+                            <div class="theme-preview" style="background:linear-gradient(135deg,#ffffff,#d9e4f2)"></div>
+                            <span>White</span>
+                        </div>
+                        <div class="theme-option" data-theme="midnight">
+                            <div class="theme-preview" style="background:linear-gradient(135deg,#1a1a2e,#0f0f1a)"></div>
+                            <span>Midnight</span>
+                        </div>
+                        <div class="theme-option" data-theme="neon">
+                            <div class="theme-preview" style="background:linear-gradient(135deg,#39ff14,#00d4ff)"></div>
+                            <span>Neon</span>
+                        </div>
+                        <div class="theme-option" data-theme="sunset">
+                            <div class="theme-preview" style="background:linear-gradient(135deg,#f97316,#ec4899)"></div>
+                            <span>Sunset</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== QUICK START MODAL ===== -->
+        <div id="quickStartModal" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3><i class="fas fa-graduation-cap"></i> How to Use Optibit</h3>
+                    <button id="quickStartClose"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body quickstart-body">
+                    <ol class="quickstart-steps">
+                        <li><strong>Open Nearby tab</strong> and tap <strong>Turn On</strong> to enable Optibit mode.</li>
+                        <li><strong>Bluetooth:</strong> tap <strong>Scan</strong> and pick a nearby device.</li>
+                        <li><strong>WiFi Direct:</strong> switch mode, share room code, then connect.</li>
+                        <li>Open the chat and send text, image, video, voice, or file.</li>
+                    </ol>
+                    <p class="quickstart-note">Browser security does not allow a website to force-toggle your phone Bluetooth hardware. If Bluetooth is off at system level, turn it on in device settings, then scan from the app.</p>
+                    <button class="btn-primary-app full-width" id="quickStartDone">
+                        <i class="fas fa-check"></i> Got It
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MEDIA VIEW ===== -->
+        <div id="mediaView" class="media-fullscreen" style="display:none">
+            <button class="media-close" id="mediaClose"><i class="fas fa-times"></i></button>
+            <div class="media-content" id="mediaContent"></div>
+        </div>
+
+        <!-- ===== VOICE RECORDING OVERLAY ===== -->
+        <div id="voiceOverlay" class="voice-overlay" style="display:none">
+            <div class="voice-recorder">
+                <div class="voice-waves">
+                    <div class="wave w1"></div>
+                    <div class="wave w2"></div>
+                    <div class="wave w3"></div>
+                    <div class="wave w4"></div>
+                    <div class="wave w5"></div>
+                </div>
+                <div class="voice-timer" id="voiceTimer">0:00</div>
+                <div class="voice-label">Recording voice note...</div>
+                <div class="voice-actions">
+                    <button class="voice-cancel" id="voiceCancel"><i class="fas fa-trash"></i> Cancel</button>
+                    <button class="voice-stop" id="voiceStop"><i class="fas fa-stop"></i> Stop & Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== CONFIRM DIALOG ===== -->
+        <div id="confirmDialog" class="modal-overlay" style="display:none">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="confirmTitle">Confirm</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">Are you sure?</p>
+                    <div class="confirm-actions">
+                        <button class="btn-ghost-app" id="confirmNo">Cancel</button>
+                        <button class="btn-primary-app" id="confirmYes">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div id="toast" class="toast" style="display:none"></div>
+
+    </div><!-- /app -->
+
+    <script src="app.js"></script>
+</body>
+
+</html>
